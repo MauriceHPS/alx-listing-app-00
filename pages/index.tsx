@@ -14,7 +14,7 @@ const index = () => {
       >
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="text-center relative z-10 px-4">
-          <h1 className="text-5xl font-bold text-white drop-shadow-md">
+          <h1 className="text-5xl font-bold text-white drop-shadow-md m-4">
             Welcome to Luxury Properties!!!
           </h1>
           <h2 className="mt-3 text-3xl font-semibold text-white drop-shadow-md">

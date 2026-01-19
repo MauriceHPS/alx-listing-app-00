@@ -2,9 +2,26 @@
 
 import React, { useState } from "react";
 import { PropertyCard } from "./PropertyCard";
-import { PROPERTYLISTINGSAMPLE } from "@/constants";
+import { PROPERTYLISTINGSAMPLE, PropertyProps } from "@/constants";
+import PropertyModal from "./property/PropertyModal";
 
 export const ListingManager: React.FC = () => {
+  // State for Modal
+  const [selectedProperty, setSelectedProperty] =
+    useState<PropertyProps | null>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handlers
+  const handleOpenModal = (property: PropertyProps) => {
+    setSelectedProperty(property);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -15,7 +32,7 @@ export const ListingManager: React.FC = () => {
   // Slice the data to get only the 6 items for the current page
   const currentProperties = PROPERTYLISTINGSAMPLE.slice(
     indexOfFirstItem,
-    indexOfLastItem
+    indexOfLastItem,
   );
 
   // Calculate total pages
@@ -48,9 +65,19 @@ export const ListingManager: React.FC = () => {
       >
         {currentProperties.map((property, index) => (
           // Using a composite key for uniqueness
-          <PropertyCard key={`${currentPage}-${index}`} data={property} />
+          <PropertyCard
+            key={`${currentPage}-${index}`}
+            data={property}
+            onSelect={handleOpenModal}
+          />
         ))}
       </div>
+
+      <PropertyModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        property={selectedProperty}
+      />
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
@@ -78,7 +105,7 @@ export const ListingManager: React.FC = () => {
                 >
                   {number}
                 </button>
-              )
+              ),
             )}
           </div>
 

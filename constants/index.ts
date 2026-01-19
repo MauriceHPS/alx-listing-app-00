@@ -7,6 +7,13 @@ export interface PropertyProps {
   offers: Offers;
   image: string;
   discount: string;
+  description?: string;
+}
+
+export interface PropertyModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  property: PropertyProps | null;
 }
 
 export interface Address {

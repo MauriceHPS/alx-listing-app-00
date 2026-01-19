@@ -2,7 +2,15 @@ import { PropertyProps } from "@/constants";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export const PropertyCard: React.FC<PropertyProps> = ({ data }) => {
+interface PropertyCardComponentProps {
+  data: PropertyProps;
+  onSelect?: (property: PropertyProps) => void;
+}
+
+export const PropertyCard: React.FC<PropertyCardComponentProps> = ({
+  data,
+  onSelect,
+}) => {
   const [imgError, setImgError] = useState(false);
 
   // Logic: Calculate price if discount exists
@@ -88,7 +96,11 @@ export const PropertyCard: React.FC<PropertyProps> = ({ data }) => {
 
         {/* Footer / Price */}
         <div className="flex justify-between items-end border-t border-slate-100 pt-4 mt-auto">
-          <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+          <button
+            className="hover:cursor hover:bg-black/60 hover:text-white rounded-lg text-sm font-semibold text-blue-600  
+          transition-colors"
+            onClick={() => onSelect?.(data)}
+          >
             View Details
           </button>
 
